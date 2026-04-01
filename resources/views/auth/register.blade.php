@@ -14,7 +14,7 @@
                 <div class="absolute left-4 top-1/2 -translate-y-1/2 p-1 text-gray-300 pointer-events-none group-focus-within:text-indigo-500 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                 </div>
-                <input id="name" type="text" name="name" :value="old('name')" required autofocus 
+                <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus 
                     class="block w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl shadow-sm focus:ring-4 focus:ring-indigo-500/10 dark:text-gray-100 transition-all font-bold placeholder-gray-300" placeholder="Jean Dupont">
             </div>
             <x-input-error :messages="$errors->get('name')" class="mt-2 text-xs font-bold text-rose-500" />
@@ -27,7 +27,7 @@
                 <div class="absolute left-4 top-1/2 -translate-y-1/2 p-1 text-gray-300 pointer-events-none group-focus-within:text-indigo-500 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                 </div>
-                <input id="email" type="email" name="email" :value="old('email')" required
+                <input id="email" type="email" name="email" value="{{ old('email') }}" required
                     class="block w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-gray-800 border-none rounded-2xl shadow-sm focus:ring-4 focus:ring-indigo-500/10 dark:text-gray-100 transition-all font-bold placeholder-gray-300" placeholder="jean@taskflow.pro">
             </div>
             <x-input-error :messages="$errors->get('email')" class="mt-2 text-xs font-bold text-rose-500" />
