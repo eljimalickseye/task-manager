@@ -88,4 +88,48 @@ class TaskController extends Controller
         $task->delete();
         return redirect()->route('tasks.index')->with('success', 'Task deleted successfully!');
     }
+
+    /**
+     * 💎 Exportation des tâches en CSV pour le Reporting
+     */
+    public function export()
+    {
+        $fileName = 'taskflow_report_' . date('Y-m-d') . '.csv';
+        $tasks = Task::all();
+
+        $headers = [
+            "Content-type"        => "text/csv; charset=UTF-8",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        ];
+
+        $columns = ['ID', 'Titre', 'Priorité', 'Catégorie', 'Statut', 'Échéance', 'Créé le'];
+
+        $callback = function() use($tasks, $columns) {
+            $file = fopen('php://output', 'w');
+            
+            // UTF-8 BOM pour Excel
+            fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+            
+            fputcsv($file, $columns);
+
+            foreach ($tasks as $task) {
+                fputcsv($file, [
+                    $task->id,
+                    $task->title,
+                    strtoupper($task->priority),
+                    $task->category,
+                    $task->completed ? 'Terminée' : 'En cours',
+                    $task->due_at ? $task->due_at->format('Y-m-d H:i') : '-',
+                    $task->created_at->format('Y-m-d H:i')
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
 }

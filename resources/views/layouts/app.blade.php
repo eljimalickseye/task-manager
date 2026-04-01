@@ -54,6 +54,10 @@
                             Mes Tâches
                         </x-nav-link-premium>
 
+                        <x-nav-link-premium :href="route('tasks.export')" :active="false" icon="export">
+                            Exporter (CSV)
+                        </x-nav-link-premium>
+
                         <div class="pt-8 pb-2 px-4 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Paramètres</div>
                         
                         <x-nav-link-premium :href="route('profile.edit')" :active="request()->routeIs('profile.edit')" icon="profile">
